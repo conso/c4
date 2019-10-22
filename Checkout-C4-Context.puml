@@ -1,0 +1,35 @@
+@startuml Publish Context
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/release/1-0/C4_Context.puml
+LAYOUT_WITH_LEGEND()
+LAYOUT_LEFT_RIGHT
+
+Person_Ext(customer, "Customer", "Wants to buy a vehicle")
+Person(customer_service_specialist, "Customer Service Specialist", "Process upsell and refunds")
+
+System(part_exchange, "Part Exchange", "Gives valution for customers vehicles")
+System(consumer_finance, "Consumer Finance", "Allows customers to apply for financing vehicles")
+System(delivery, "Delivery", "Lists available delivery slots")
+System(locate, "Locate", "Provides address information")
+System(search_and_browse, "Search and Browse", "Lists available vehicles")
+System(checkout, "Checkout", "Orchestrates the order workflow and creates sales orders")
+
+System_Ext(commerce_tools, "Commerce Tools", "ecommerce platform")
+System_Ext(salesforce, "Salesforce", "CRM platform")
+System_Ext(stripe, "Stripe", "Payments platform")
+System_Ext(analytics, "Analytics", "Aggregates and display website usage information")
+
+Rel(customer_service_specialist, stripe, "Process post checkout transactions via")
+Rel(checkout, stripe, "Sends payments instructions to")
+Rel(checkout, consumer_finance, "Redirects the order workflow to")
+Rel(checkout, part_exchange, "Gets trade-in vehicles appraisals from")
+Rel(search_and_browse, checkout, "Links to")
+Rel(customer, search_and_browse, "Finds vehicles with")
+Rel(customer, checkout, "Purchase a vehicle via")
+Rel(salesforce, commerce_tools, "Reads sales info from")
+Rel(checkout, commerce_tools, "Reads vehicles from")
+Rel(checkout, commerce_tools, "Write checkout state to")
+Rel(checkout, delivery, "Books delivery via")
+Rel(checkout, locate, "Gets address info from")
+Rel(checkout, analytics, "Sends activity data to")
+
+@enduml

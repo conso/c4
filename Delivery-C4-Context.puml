@@ -1,0 +1,30 @@
+@startuml Publish Context
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/release/1-0/C4_Context.puml
+LAYOUT_WITH_LEGEND()
+
+Person_Ext(customer, "Customer", "Wants to buy a vehicle")
+Person(customer_service_specialist, "Customer Service Specialist", "Help solving customer problems")
+Person(delivery_specialist, "Delivery Specialist", "Deliver the vehicle to the customer door")
+Person(delivery_manager, "Delivery Manager", "Organize drivers and delivery")
+
+System(delivery, "Delivery", "Moves vehicles to and from customers")
+System(checkout, "Checkout", "Manages orders and payments")
+System(asset_management, "Asset Management", "Tracking vehicle inventory")
+System_Ext(salesforce, "Salesforce", "CRM platform")
+System_Ext(bca, "BCA", "Hold physical stock")
+System_Ext(descartes_route_planner, "Descartes Route planner", "Manages schedules and drivers")
+System_Ext(descartes_mobile_link, "Mobile Link", "Visualize routes for drivers")
+
+Rel(delivery, asset_management, "Notify delivery events to")
+Rel(delivery, salesforce, "Notify delivery events to")
+Rel(delivery, bca, "Schedule movements of vehicle to")
+Rel(delivery, checkout, "Offers delivery services to")
+Rel(delivery, descartes_route_planner, "Book delivery via")
+Rel(descartes_mobile_link, delivery, "Notify delivery updates to")
+Rel(checkout, delivery, "Notify demand of fulfillment to")
+Rel(delivery_manager, descartes_route_planner, "Organise schedule and delivery via")
+Rel(delivery_specialist, descartes_mobile_link, "Read delivery routes from")
+Rel(customer, checkout, "Buys a vehicle via")
+Rel(delivery_specialist, customer, "Deliver vehicles to")
+Rel(customer_service_specialist, salesforce, "Reads delivery updates from")
+@enduml

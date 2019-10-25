@@ -1,6 +1,7 @@
 @startuml Publish Context
 !includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/release/1-0/C4_Context.puml
 LAYOUT_WITH_LEGEND()
+LAYOUT_LEFT_RIGHT
 
 Person_Ext(customer, "Customer", "Wants to buy a vehicle")
 Person(customer_service_specialist, "Customer Service Specialist", "Help solving customer problems")
